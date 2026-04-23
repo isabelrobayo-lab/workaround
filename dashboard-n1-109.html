@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard N1 - Hogar 109 (109)</title>
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.6;color:#1a1a2e;background:#f0f2f5}
+.header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:#fff;padding:1.5rem 2rem}
+.header-content{max-width:1200px;margin:0 auto}
+.header-title{font-size:1.5rem;font-weight:700;margin-bottom:.25rem}
+.header-subtitle{font-size:1rem;opacity:.85}
+.main-content{max-width:1200px;margin:0 auto;padding:1.5rem}
+.section{background:#fff;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.section-title{font-size:1.25rem;font-weight:700;color:#1a1a2e;margin-bottom:.5rem;border-bottom:2px solid #e8e8e8;padding-bottom:.5rem}
+.section-description{color:#555;margin-bottom:1rem;font-size:.9rem}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:#f8f9fa;border-radius:8px;padding:1rem;text-align:center;border:1px solid #e8e8e8}
+.stat-card-success{border-color:#28a745;background:#f0fff4}
+.stat-card-warning{border-color:#e67e22;background:#fff8f0}
+.stat-value{display:block;font-size:1.75rem;font-weight:700;color:#1a1a2e}
+.stat-label{display:block;font-size:.8rem;color:#666;margin-top:.25rem;text-transform:uppercase;letter-spacing:.5px}
+.producto-highlight{background:#e8f4fd;border-left:4px solid #2196f3;padding:1rem;border-radius:0 8px 8px 0;margin-bottom:1rem}
+.producto-highlight h3{font-size:.95rem;color:#1565c0;margin-bottom:.25rem}
+.producto-highlight p{font-size:.9rem;color:#333}
+.distribucion-details{margin-top:1rem}
+.distribucion-details summary{cursor:pointer;font-weight:600;color:#1a1a2e;padding:.5rem 0;font-size:.9rem}
+.table-wrapper{overflow-x:auto;margin-top:.5rem}
+.data-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.data-table th,.data-table td{padding:.5rem .75rem;text-align:left;border-bottom:1px solid #e8e8e8}
+.data-table th{background:#f8f9fa;font-weight:600;color:#555;text-transform:uppercase;font-size:.75rem;letter-spacing:.5px}
+.data-table .row-active{background:#e8f4fd;font-weight:600}
+.filters-section{padding:1rem 1.5rem}
+.filters-row{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-end}
+.filter-group{flex:0 0 auto}
+.filter-group-search{flex:1 1 300px}
+.filter-label{display:block;font-size:.8rem;font-weight:600;color:#555;margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.5px}
+.filter-select{padding:.5rem .75rem;border:1px solid #ccc;border-radius:6px;font-size:.9rem;background:#fff;min-width:200px}
+.filter-select:focus{outline:none;border-color:#2196f3;box-shadow:0 0 0 2px rgba(33,150,243,.2)}
+.search-wrapper{position:relative;display:flex;align-items:center}
+.search-input{width:100%;padding:.5rem .75rem;padding-right:2rem;border:1px solid #ccc;border-radius:6px;font-size:.9rem}
+.search-input:focus{outline:none;border-color:#2196f3;box-shadow:0 0 0 2px rgba(33,150,243,.2)}
+.search-clear{position:absolute;right:.5rem;background:none;border:none;font-size:1rem;color:#999;cursor:pointer;padding:.25rem}
+.search-clear:hover{color:#333}
+.causa-card-wrapper{margin-bottom:1rem}
+.causa-card{border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;transition:box-shadow .2s}
+.causa-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.causa-card[open]{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.causa-card-escalamiento{border-color:#e67e22;border-left:4px solid #e67e22}
+.causa-card-escalamiento:hover{box-shadow:0 2px 8px rgba(230,126,34,.2)}
+.causa-summary{padding:1rem 1.25rem;cursor:pointer;list-style:none;user-select:none}
+.causa-summary::-webkit-details-marker{display:none}
+.causa-summary::marker{display:none;content:""}
+.causa-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.causa-nombre{font-size:1rem;font-weight:600;color:#1a1a2e;flex:1}
+.causa-meta{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.badge{display:inline-block;padding:.2rem .6rem;border-radius:12px;font-size:.75rem;font-weight:600}
+.badge-workaround{background:#e8f5e9;color:#2e7d32}
+.badge-escalamiento{background:#fff3e0;color:#e65100}
+.causa-tickets{font-size:.8rem;color:#777}
+.causa-content{padding:0 1.25rem 1.25rem;border-top:1px solid #f0f0f0}
+.causa-tickets-list{margin-top:1rem;margin-bottom:1rem;font-size:.85rem;color:#555}
+.ticket-tag{display:inline-block;background:#e3f2fd;color:#1565c0;padding:.15rem .5rem;border-radius:4px;font-size:.8rem;font-family:monospace;margin:.15rem .25rem .15rem 0}
+.workaround-section{margin-top:1rem}
+.workaround-section-title{font-size:.9rem;font-weight:600;color:#333;margin-bottom:.5rem;padding-bottom:.25rem;border-bottom:1px dashed #e0e0e0}
+.symptom-list,.docs-list{list-style:disc;padding-left:1.5rem;font-size:.85rem;color:#444}
+.symptom-list li,.docs-list li,.steps-list li{margin-bottom:.35rem}
+.steps-list{padding-left:1.5rem;font-size:.85rem;color:#444}
+.escalamiento-section{margin-top:1rem;background:#fff8f0;border:1px solid #f5c6a0;border-radius:8px;padding:1rem;border-left:4px solid #e67e22}
+.escalamiento-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem}
+.escalamiento-icon{font-size:1.25rem;color:#e67e22}
+.escalamiento-title{font-size:.95rem;font-weight:600;color:#e65100;margin:0}
+.escalamiento-body{font-size:.85rem;color:#444}
+.escalamiento-field{margin-bottom:.75rem}
+.escalamiento-field strong{color:#333}
+.escalamiento-field p{margin-top:.25rem}
+.datos-adjuntar-list{list-style:disc;padding-left:1.5rem;margin-top:.25rem}
+.datos-adjuntar-list li{margin-bottom:.25rem}
+.empty-message{color:#888;font-style:italic;font-size:.9rem;padding:.5rem 0}
+.no-results{text-align:center;padding:2rem;color:#888}
+.no-results-icon{font-size:2.5rem;display:block;margin-bottom:.5rem}
+.no-results-suggestions{font-size:.85rem;color:#666;margin-top:.5rem}
+.footer{background:#1a1a2e;color:#fff;padding:1rem 2rem;text-align:center;font-size:.85rem;margin-top:2rem}
+.footer-content p{margin:.25rem 0;opacity:.85}
+.footer-content strong{opacity:1}
+.back-link{display:inline-block;margin-bottom:1rem;color:#1565c0;text-decoration:none;font-size:.9rem}
+.back-link:hover{text-decoration:underline}
+@media(max-width:768px){.header{padding:1rem}.main-content{padding:1rem}.filters-row{flex-direction:column}.filter-group,.filter-group-search{width:100%}.filter-select{width:100%}.causa-header{flex-direction:column}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.stats-grid{grid-template-columns:1fr}.header-title{font-size:1.2rem}}
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-content">
+    <h1 class="header-title">Dashboard N1 &mdash; Inteligencia Operacional</h1>
+    <p class="header-subtitle">Hogar 109 (ID: 109)</p>
+  </div>
+</header>
+<main class="main-content">
+<a href="dashboard-n1-index.html" class="back-link">&larr; Volver al &#237;ndice</a>
+<section class="section resumen-ejecutivo">
+  <h2 class="section-title">Resumen Ejecutivo</h2>
+  <p class="section-description">Producto: <strong>Hogar 109</strong> (ID: 109)</p>
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-value">160</span><span class="stat-label">Tickets Extra&#237;dos</span></div>
+    <div class="stat-card"><span class="stat-value">42</span><span class="stat-label">Tickets Validados</span></div>
+    <div class="stat-card"><span class="stat-value">118</span><span class="stat-label">No Validados</span></div>
+    <div class="stat-card"><span class="stat-value">13</span><span class="stat-label">Causas Ra&#237;z</span></div>
+    <div class="stat-card stat-card-success"><span class="stat-value">11</span><span class="stat-label">Workarounds</span></div>
+    <div class="stat-card stat-card-warning"><span class="stat-value">2</span><span class="stat-label">Escalamientos</span></div>
+  </div>
+  <div class="producto-highlight"><h3>Detalle del producto seleccionado</h3><p><strong>22</strong> tickets, <strong>8</strong> causas ra&#237;z, <strong>8</strong> workarounds, <strong>0</strong> escalamientos</p></div>
+  <details class="distribucion-details"><summary>Ver distribuci&#243;n por producto</summary>
+    <div class="table-wrapper"><table class="data-table"><thead><tr><th>ID</th><th>Producto</th><th>Tickets</th><th>Causas Ra&#237;z</th><th>Workarounds</th><th>Escalamientos</th></tr></thead><tbody>
+      <tr class="row-active"><td>109</td><td>Hogar 109</td><td>22</td><td>8</td><td>8</td><td>0</td></tr>
+      <tr><td>117</td><td>Hogar 117</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+      <tr><td>339</td><td>Hogar 339</td><td>4</td><td>2</td><td>1</td><td>1</td></tr>
+      <tr><td>923</td><td>Hogar 923</td><td>14</td><td>3</td><td>2</td><td>1</td></tr>
+    </tbody></table></div>
+  </details>
+</section>
+<section class="section filters-section">
+  <div class="filters-row">
+    <div class="filter-group">
+      <label for="product-filter" class="filter-label">Filtrar por producto</label>
+      <select id="product-filter" class="filter-select">
+        <option value="all">Todos los productos</option>
+        <option value="109" selected>Hogar 109 (109)</option>
+        <option value="115">Hogar 115 (115)</option>
+        <option value="117">Hogar 117 (117)</option>
+        <option value="923">Hogar 923 (923)</option>
+        <option value="339">Hogar 339 (339)</option>
+      </select>
+    </div>
+    <div class="filter-group filter-group-search">
+      <label for="search-input" class="filter-label">Buscar por palabras clave</label>
+      <div class="search-wrapper">
+        <input type="text" id="search-input" class="search-input" placeholder="Ej: timeout, error autenticaci&#243;n, p&#243;liza..." autocomplete="off">
+        <button id="search-clear" class="search-clear" title="Limpiar b&#250;squeda" style="display:none;">&#10005;</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="causas-raiz-section">
+  <h2 class="section-title">Causas Ra&#237;z Identificadas</h2>
+  <p class="section-description" id="results-count">Mostrando 8 causa(s) ra&#237;z para Hogar 109</p>
+  <div id="causas-raiz-container">
