@@ -1,79 +1,84 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Base de Conocimiento � Soporte N1</title>
+<title>Base de Conocimiento — Soporte N1</title>
 <style>
-/* === RESET & BASE === */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:15px;line-height:1.6;color:#1e293b;background:#f1f5f9;min-height:100vh;-webkit-font-smoothing:antialiased}
-.header{background:linear-gradient(135deg,#004D2B 0%,#006837 40%,#00A651 100%);color:#fff;padding:1.5rem 2rem;box-shadow:0 2px 8px rgba(0,77,43,.2)}
-.header-content{max-width:1200px;margin:0 auto}
-.header-title{font-size:1.5rem;font-weight:700;margin-bottom:.3rem}
-.header-subtitle{font-size:.9rem;opacity:.85}
-.main-content{max-width:1200px;margin:0 auto;padding:1.75rem 1.5rem}
-.section{background:#fff;border-radius:12px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid #e2e8f0}
-.section-title{font-size:1.15rem;font-weight:700;color:#1e293b;margin-bottom:.75rem;border-bottom:2px solid #e2e8f0;padding-bottom:.5rem}
-.section-description{color:#64748b;margin-bottom:1rem;font-size:.88rem}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem}
-.stat-card{background:#fff;border-radius:10px;padding:1.15rem 1rem;text-align:center;border:1px solid #e2e8f0;transition:transform .2s,box-shadow .2s}
-.stat-card:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
-.stat-card-success{border-color:#86efac;background:#f0fdf4}
-.stat-card-warning{border-color:#fde68a;background:#fffbeb}
-.stat-value{display:block;font-size:1.8rem;font-weight:800;color:#1e293b;line-height:1.2}
-.stat-label{display:block;font-size:.72rem;color:#64748b;margin-top:.35rem;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
-.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
-.product-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1.5rem;transition:box-shadow .2s,transform .2s}
-.product-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-3px)}
-.product-card-highlight{border-color:#81C784;border-left:4px solid #00A651;background:#f0fdf4}
-.product-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
-.product-name{font-size:1.1rem;font-weight:700;color:#1e293b}
-.product-id{font-size:.73rem;color:#64748b;background:#f1f5f9;padding:.25rem .6rem;border-radius:12px;font-weight:600;border:1px solid #e2e8f0}
-.product-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1.25rem}
-.product-stat{text-align:center;padding:.6rem .4rem;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0}
-.product-stat-value{display:block;font-size:1.15rem;font-weight:800;color:#1e293b}
-.product-stat-label{display:block;font-size:.68rem;color:#64748b;text-transform:uppercase;letter-spacing:.4px;font-weight:600;margin-top:.15rem}
-.product-link{display:block;text-align:center;padding:.7rem 1rem;background:linear-gradient(135deg,#006837,#00A651);color:#fff;text-decoration:none;border-radius:8px;font-size:.9rem;font-weight:600;transition:opacity .2s}
-.product-link:hover{opacity:.9}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;line-height:1.5;color:#334155;background:#f8fafc;min-height:100vh;-webkit-font-smoothing:antialiased}
+.header{background:#006837;height:48px;display:flex;align-items:center;padding:0 24px}
+.header-inner{max-width:1200px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.header-title{font-size:15px;font-weight:600;color:#fff;letter-spacing:-0.01em}
+.header-subtitle{font-size:12px;color:rgba(255,255,255,.7);font-weight:400}
+.main{max-width:1200px;margin:0 auto;padding:24px 20px}
+.kpi-strip{display:flex;align-items:center;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:0;margin-bottom:24px;overflow:hidden}
+.kpi-item{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 20px}
+.kpi-item+.kpi-item{border-left:1px solid #e2e8f0}
+.kpi-value{font-size:24px;font-weight:700;color:#0f172a;line-height:1}
+.kpi-label{font-size:13px;color:#64748b;font-weight:500}
+.product-section{margin-bottom:24px}
+.product-section-title{font-size:13px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px}
+.product-card{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:20px 24px;display:flex;align-items:center;gap:24px;transition:box-shadow .15s}
+.product-card:hover{box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.product-icon{width:44px;height:44px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.product-info{flex:1;min-width:0}
+.product-name{font-size:16px;font-weight:600;color:#0f172a;margin-bottom:2px}
+.product-desc{font-size:13px;color:#64748b}
+.product-stats{display:flex;gap:20px;flex-shrink:0}
+.product-stat{text-align:center}
+.product-stat-value{display:block;font-size:18px;font-weight:700;color:#0f172a;line-height:1.2}
+.product-stat-label{display:block;font-size:11px;color:#64748b;font-weight:500;margin-top:2px}
+.product-action{flex-shrink:0}
+.product-link{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:#006837;color:#fff;text-decoration:none;border-radius:6px;font-size:13px;font-weight:600;transition:background .15s}
+.product-link:hover{background:#004D2B}
 .product-link:focus{outline:2px solid #00A651;outline-offset:2px}
-.product-link-blue{background:linear-gradient(135deg,#006837,#00A651)}
-.footer{background:linear-gradient(135deg,#004D2B,#006837,#00A651);color:#fff;padding:1.25rem 1.75rem;text-align:center;font-size:.82rem;margin-top:2rem}
-.footer-content p{margin:.25rem 0;opacity:.8}
-.footer-content strong{opacity:1}
-.footer-content .footer-ai{font-size:.75rem;opacity:.5;margin-top:.5rem;font-style:italic}
-@media(max-width:768px){.header{padding:1.25rem 1rem}.main-content{padding:1.25rem 1rem}.products-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.section{padding:1.25rem}}
-@media(max-width:480px){.stats-grid{grid-template-columns:1fr}.header-title{font-size:1.25rem}.section{padding:1rem}.main-content{padding:1rem .75rem}}
+.product-link svg{width:14px;height:14px}
+.footer{border-top:1px solid #e2e8f0;margin-top:32px;padding:16px 0;text-align:center}
+.footer-text{font-size:12px;color:#94a3b8}
+.footer-text strong{color:#64748b;font-weight:600}
+.footer-ai{font-size:11px;color:#cbd5e1;margin-top:4px;font-style:italic}
+@media(max-width:768px){
+.header{height:auto;padding:12px 16px}
+.header-inner{flex-direction:column;align-items:flex-start;gap:2px}
+.main{padding:16px 12px}
+.kpi-strip{flex-direction:column}
+.kpi-item+.kpi-item{border-left:none;border-top:1px solid #e2e8f0}
+.product-card{flex-direction:column;align-items:flex-start;gap:16px}
+.product-stats{width:100%;justify-content:space-around}
+.product-action{width:100%}
+.product-link{width:100%;justify-content:center}
+}
+@media(max-width:480px){
+.kpi-item{padding:12px 16px}
+.kpi-value{font-size:20px}
+.product-stats{gap:12px}
+}
 </style>
 </head>
 <body>
-<header class="header"><div class="header-content"><h1 class="header-title">&#128203; Base de Conocimiento &mdash; Soporte N1</h1><p class="header-subtitle">&#205;ndice de Dashboards por Producto</p></div></header>
-<main class="main-content">
-<section class="section">
-<h2 class="section-title">Resumen General</h2>
-<div class="stats-grid">
-<div class="stat-card"><span class="stat-value">5</span><span class="stat-label">&#128230; Productos</span></div>
-<div class="stat-card"><span class="stat-value">42</span><span class="stat-label">&#128202; Tickets Validados</span></div>
-<div class="stat-card"><span class="stat-value">13</span><span class="stat-label">&#128269; Causas Ra&#237;z</span></div>
+<header class="header"><div class="header-inner"><span class="header-title">&#128203; Base de Conocimiento &mdash; Soporte N1</span><span class="header-subtitle">&Iacute;ndice de Dashboards por Producto</span></div></header>
+<main class="main">
+<div class="kpi-strip">
+<div class="kpi-item"><span class="kpi-value">5</span><span class="kpi-label">Productos</span></div>
+<div class="kpi-item"><span class="kpi-value">42</span><span class="kpi-label">Tickets Validados</span></div>
+<div class="kpi-item"><span class="kpi-value">13</span><span class="kpi-label">Causas Ra&iacute;z</span></div>
 </div>
-</section>
-<section class="section">
-<h2 class="section-title">Dashboards por Producto</h2>
-<p class="section-description">Seleccione un producto para ver sus causas ra&#237;z, workarounds y recomendaciones de escalamiento.</p>
-<div class="products-grid">
-<div class="product-card product-card-highlight">
-<div class="product-card-header"><h3 class="product-name">&#127968; Hogar</h3><span class="product-id">Productos: 109, 115, 117, 339, 923</span></div>
+<div class="product-section">
+<div class="product-section-title">Dashboards por Producto</div>
+<div class="product-card">
+<div class="product-icon">&#127968;</div>
+<div class="product-info"><div class="product-name">Hogar</div><div class="product-desc">Productos: 109, 115, 117, 339, 923</div></div>
 <div class="product-stats">
 <div class="product-stat"><span class="product-stat-value">42</span><span class="product-stat-label">Tickets</span></div>
-<div class="product-stat"><span class="product-stat-value">13</span><span class="product-stat-label">Causas Ra&#237;z</span></div>
+<div class="product-stat"><span class="product-stat-value">13</span><span class="product-stat-label">Causas Ra&iacute;z</span></div>
 <div class="product-stat"><span class="product-stat-value">11</span><span class="product-stat-label">Workarounds</span></div>
 <div class="product-stat"><span class="product-stat-value">2</span><span class="product-stat-label">Escalamientos</span></div>
 </div>
-<a href="dashboard-n1-hogar.html" class="product-link product-link-blue">Ver Dashboard &rarr;</a>
+<div class="product-action"><a href="dashboard-n1-hogar.html" class="product-link">Ver Dashboard <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg></a></div>
 </div>
 </div>
-</section>
+<div class="footer"><div class="footer-text">Dashboard generado el <strong>23 de abril de 2026</strong> &middot; Total de tickets procesados: <strong>42</strong></div><div class="footer-ai">Generado con IA &mdash; Inteligencia Operacional N1</div></div>
 </main>
-<footer class="footer"><div class="footer-content"><p>Dashboard generado el <strong>23 de abril de 2026</strong></p><p>Total de tickets procesados: <strong>42</strong></p><p class="footer-ai">Generado con IA &mdash; Inteligencia Operacional N1</p></div></footer>
 </body>
 </html>
