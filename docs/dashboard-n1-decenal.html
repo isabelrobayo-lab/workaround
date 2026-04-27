@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base de Conocimiento N1 — &#127959; Decenal y Todo Riesgo</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;line-height:1.5;color:#334155;background:#f8fafc;min-height:100vh;-webkit-font-smoothing:antialiased}
+.header{background:linear-gradient(135deg,#004D2B 0%,#006837 40%,#00A651 100%);padding:1.5rem 2rem;box-shadow:0 2px 8px rgba(0,77,43,.2)}
+.header-inner{max-width:1200px;margin:0 auto}
+.header-title{font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:.3rem}
+.header-subtitle{font-size:.9rem;color:rgba(255,255,255,.85)}
+.main{max-width:1200px;margin:0 auto;padding:24px 20px}
+.back-link{display:inline-flex;align-items:center;gap:4px;color:#006837;text-decoration:none;font-size:13px;font-weight:500;margin-bottom:20px;padding:4px 8px;border-radius:4px;transition:background .15s}
+.back-link:hover{background:#f0fdf4}
+.back-link:focus{outline:2px solid #00A651;outline-offset:2px}
+.section{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:20px 24px;margin-bottom:16px}
+.section-title{font-size:1.1rem;font-weight:700;color:#0f172a;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e2e8f0}
+.context-toggle{cursor:pointer;font-weight:600;color:#006837;font-size:13px;padding:8px 0;list-style:none;user-select:none}
+.context-toggle::-webkit-details-marker{display:none}
+.context-toggle::before{content:"\25B8 ";font-size:11px}
+details[open]>.context-toggle::before{content:"\25BE "}
+.context-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-top:12px}
+.context-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:16px;border-left:3px solid #00A651}
+.context-card h3{font-size:14px;font-weight:700;color:#004D2B;margin-bottom:8px}
+.context-card>p{font-size:13px;color:#475569;margin-bottom:8px}
+.filters{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:12px 20px;margin-bottom:16px}
+.filter-group{display:flex;flex-direction:column;gap:4px}
+.filter-group-search{flex:1;min-width:240px}
+.filter-label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.05em}
+.filter-select{padding:6px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:13px;background:#fff;min-width:280px;color:#334155;transition:border-color .15s}
+.filter-select:focus{outline:none;border-color:#00A651;box-shadow:0 0 0 2px rgba(0,166,81,.12)}
+.search-wrapper{position:relative;display:flex;align-items:center}
+.search-input{width:100%;padding:6px 12px;padding-right:28px;border:1px solid #e2e8f0;border-radius:6px;font-size:13px;color:#334155;transition:border-color .15s}
+.search-input::placeholder{color:#94a3b8}
+.search-input:focus{outline:none;border-color:#00A651;box-shadow:0 0 0 2px rgba(0,166,81,.12)}
+.search-clear{position:absolute;right:8px;background:none;border:none;font-size:14px;color:#94a3b8;cursor:pointer;padding:2px;line-height:1;transition:color .15s}
+.search-clear:hover{color:#334155}
+.results-info{font-size:13px;color:#64748b;margin-bottom:12px}
+.causa-card-wrapper{margin-bottom:8px}
+.causa-card{border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;background:#fff;transition:box-shadow .15s}
+.causa-card:hover{box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.causa-card[open]{border-color:#bbf7d0;box-shadow:0 1px 4px rgba(0,166,81,.08)}
+.causa-summary{padding:12px 20px;cursor:pointer;list-style:none;user-select:none;transition:background .1s}
+.causa-summary:hover{background:#f8fafc}
+.causa-summary::-webkit-details-marker{display:none}
+.causa-summary::marker{display:none;content:""}
+.causa-header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.causa-nombre{font-size:.95rem;font-weight:600;color:#0f172a;flex:1;line-height:1.4}
+.causa-meta{display:flex;gap:8px;align-items:center;flex-shrink:0;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge-workaround{background:#dcfce7;color:#166534;border:1px solid #86efac}
+.causa-tickets-count{font-size:12px;color:#64748b;font-weight:500;white-space:nowrap}
+.causa-content{padding:0 20px 20px;border-top:1px solid #f1f5f9;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-2px)}to{opacity:1;transform:translateY(0)}}
+.causa-tickets-list{margin-top:12px;margin-bottom:16px;font-size:13px;color:#475569}
+.ticket-tag{display:inline-block;background:#f0fdf4;color:#006837;padding:2px 8px;border-radius:4px;font-size:12px;font-family:'SF Mono',SFMono-Regular,Consolas,monospace;margin:2px 4px 2px 0;border:1px solid #bbf7d0}
+.content-block{padding-top:12px;margin-top:12px;border-top:1px solid #f1f5f9}
+.content-block:first-child{border-top:none;padding-top:0;margin-top:0}
+.content-block-title{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.symptom-list,.docs-list{list-style:disc;padding-left:20px;font-size:13px;color:#475569;line-height:1.6}
+.symptom-list li,.docs-list li,.steps-list li{margin-bottom:4px}
+.steps-list{padding-left:20px;font-size:13px;color:#475569;line-height:1.6}
+.ajuste-tecnico-block{margin-top:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:16px;border-left:3px solid #00A651}
+.ajuste-tecnico-title{font-size:13px;font-weight:700;color:#004D2B;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ajuste-tecnico-body{font-size:13px;color:#475569}
+.ajuste-tecnico-field{margin-bottom:6px}
+.ajuste-tecnico-field strong{color:#0f172a}
+.ajuste-tecnico-field p{margin-top:2px;line-height:1.5}
+.no-results{text-align:center;padding:32px;color:#94a3b8}
+.no-results-icon{font-size:32px;display:block;margin-bottom:8px}
+.confluence-section{background:#fff;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:16px;overflow:hidden}
+.confluence-section-toggle{padding:16px 24px;cursor:pointer;list-style:none;user-select:none;font-size:14px;font-weight:700;color:#004D2B}
+.confluence-section-toggle::-webkit-details-marker{display:none}
+.confluence-section-toggle::before{content:"\25B8 ";font-size:11px}
+details[open]>.confluence-section-toggle::before{content:"\25BE "}
+.confluence-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;padding:0 24px 20px}
+.confluence-col{background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:16px;border-left:3px solid #00A651}
+.confluence-col h4{font-size:13px;font-weight:700;color:#004D2B;margin-bottom:8px}
+.confluence-col ul{list-style:none;padding:0}
+.confluence-col li{margin-bottom:6px}
+.confluence-col a{color:#006837;text-decoration:none;font-size:13px;font-weight:500}
+.confluence-col a:hover{color:#004D2B;text-decoration:underline}
+.footer{border-top:1px solid #e2e8f0;margin-top:24px;padding:16px 0;text-align:center}
+.footer-text{font-size:.82rem;color:#94a3b8}
+.footer-text strong{color:#64748b;font-weight:600}
+.footer-ai{font-size:11px;color:#cbd5e1;margin-top:4px;font-style:italic}
+@media(max-width:768px){.header{height:auto;padding:12px 16px}.header-inner{flex-direction:column;align-items:flex-start;gap:2px}.main{padding:16px 12px}.filters{flex-direction:column;gap:8px}.filter-group,.filter-group-search{width:100%}.filter-select{width:100%}.causa-header{flex-direction:column;align-items:flex-start;gap:6px}.section{padding:16px}.confluence-grid{grid-template-columns:1fr;padding:0 16px 16px}}
+@media(max-width:480px){.section{padding:12px}.causa-summary{padding:10px 12px}.causa-content{padding:0 12px 12px}}
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner"><span class="header-title">&#128203; Base de Conocimiento &mdash; Soporte N1</span><span class="header-subtitle">&#127959; Segmento Decenal y Todo Riesgo (150, 160)</span></div></header>
+<main class="main">
+<a href="dashboard-n1-index.html" class="back-link">&larr; Volver al &iacute;ndice</a>
+
+<section class="section resumen-ejecutivo">
+<h2 class="section-title">Resumen Ejecutivo &mdash; Segmento Decenal y Todo Riesgo</h2>
+<p style="font-size:13px;color:#64748b;margin-bottom:16px;">11 tickets analizados &middot; 5 causas ra&iacute;z &middot; 3 productos</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:16px;">
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:12px 16px;border-left:3px solid #2563eb;"><div style="font-weight:700;font-size:13px;color:#1e40af;margin-bottom:8px;">160 Secci&oacute;n I &mdash; Decenal</div><span style="font-size:12px;color:#94a3b8;font-style:italic;">Documentaci&oacute;n pendiente</span></div>
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:12px 16px;border-left:3px solid #2563eb;"><div style="font-weight:700;font-size:13px;color:#1e40af;margin-bottom:8px;">160 Secci&oacute;n II &mdash; Todo Riesgo Constructor (TC)</div><span style="font-size:12px;color:#94a3b8;font-style:italic;">Documentaci&oacute;n pendiente</span></div>
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:12px 16px;border-left:3px solid #2563eb;"><div style="font-weight:700;font-size:13px;color:#1e40af;margin-bottom:8px;">150 &mdash; Todo Riesgo</div><span style="font-size:12px;color:#94a3b8;font-style:italic;">Documentaci&oacute;n pendiente</span></div>
+</div>
+
+<details><summary class="context-toggle">&#128218; Ver contexto de productos</summary>
+<div class="context-grid">
+<div class="context-card"><h3>&#127959; Decenal (producto 160)</h3><p>Seguro decenal que cubre defectos estructurales de construcci&oacute;n. Se divide en Secci&oacute;n I (Decenal puro) y Secci&oacute;n II (Todo Riesgo Constructor). Emisi&oacute;n y gesti&oacute;n por Sim&oacute;n Web.</p></div>
+<div class="context-card"><h3>&#127959; Todo Riesgo (producto 150)</h3><p>Seguro todo riesgo de construcci&oacute;n. Cubre da&ntilde;os materiales durante la obra. Emisi&oacute;n por Sim&oacute;n Web.</p></div>
+</div></details>
+</section>
+
+<div class="filters">
+<div class="filter-group"><label for="product-filter" class="filter-label">Producto</label><select id="product-filter" class="filter-select"><option value="all">Todos los productos</option><option value="160">160 Secci&oacute;n I &mdash; Decenal</option><option value="160-tc">160 Secci&oacute;n II &mdash; Todo Riesgo Constructor</option><option value="150">150 &mdash; Todo Riesgo</option></select></div>
+<div class="filter-group filter-group-search"><label for="search-input" class="filter-label">Buscar</label><div class="search-wrapper"><input type="text" id="search-input" class="search-input" placeholder="Ej: anticipo, PDF, corretaje, bloqueo..." autocomplete="off"><button id="search-clear" class="search-clear" title="Limpiar" style="display:none;">&#10005;</button></div></div>
+</div>
+
+<section class="section" id="causas-raiz-section">
+<h2 class="section-title">Causas Ra&iacute;z Identificadas</h2>
+<p class="results-info" id="results-count">Mostrando 5 causa(s) ra&iacute;z para Segmento Decenal y Todo Riesgo</p>
+<div id="causas-raiz-container">
+
+<!-- CR-D01 -->
+<div class="causa-card-wrapper" data-causa-id="CR-D01" data-producto-id="160"><details class="causa-card"><summary class="causa-summary"><div class="causa-header"><h3 class="causa-nombre">Anticipo de p&oacute;liza Decenal con valor incorrecto</h3><div class="causa-meta"><span class="badge badge-workaround">&#10003; Workaround Disponible</span><span class="causa-tickets-count">3 ticket(s)</span></div></div></summary><div class="causa-content"><div class="causa-tickets-list"><strong>Tickets asociados:</strong> <span class="ticket-tag">MDSB-996357</span> <span class="ticket-tag">MDSB-951261</span> <span class="ticket-tag">MDSB-919094</span></div><div class="content-block"><h4 class="content-block-title">S&iacute;ntomas Detectados</h4><ul class="symptom-list"><li>Valor de anticipo (15%) calculado incorrectamente</li><li>Recibo de anticipo no generado en pasarela de pago</li></ul></div><div class="content-block"><h4 class="content-block-title">Pasos del Workaround</h4><ol class="steps-list"><li>Verificar en Tronador el valor del anticipo vs el valor correcto (15% de la prima).</li><li>Si el valor es incorrecto: escalar a N2 para correcci&oacute;n manual del valor en sistema.</li><li>Si el recibo no se gener&oacute;: solicitar regeneraci&oacute;n del recibo de anticipo.</li><li>Escalar con n&uacute;mero de p&oacute;liza, valor esperado y valor actual.</li></ol></div><div class="content-block"><h4 class="content-block-title">Documentaci&oacute;n de Soporte</h4><ul class="docs-list"><li>MDSB-996357 &mdash; Ajustar valor cobro anticipo 15%</li><li>MDSB-951261 &mdash; Anticipo P&oacute;liza Decenal Valor Incorrecto Proyecto Nogales</li><li>MDSB-919094 &mdash; P&oacute;liza no gener&oacute; recibo anticipo</li></ul></div><div class="ajuste-tecnico-block"><div class="ajuste-tecnico-title">&#128736; Ajuste T&eacute;cnico</div><div class="ajuste-tecnico-body"><div class="ajuste-tecnico-field"><strong>Descripci&oacute;n:</strong><p>Corregir c&aacute;lculo de anticipo en motor de emisi&oacute;n Decenal. El 15% no se aplica correctamente en todos los escenarios.</p></div><div class="ajuste-tecnico-field"><strong>Sistema:</strong> Sim&oacute;n Web / Tronador</div><div class="ajuste-tecnico-field"><strong>Nivel:</strong> N2</div></div></div></div></details></div>
+
+<!-- CR-D02 -->
+<div class="causa-card-wrapper" data-causa-id="CR-D02" data-producto-id="160"><details class="causa-card"><summary class="causa-summary"><div class="causa-header"><h3 class="causa-nombre">Error en impresi&oacute;n/descarga de PDF de p&oacute;liza Decenal y TRC</h3><div class="causa-meta"><span class="badge badge-workaround">&#10003; Workaround Disponible</span><span class="causa-tickets-count">3 ticket(s)</span></div></div></summary><div class="causa-content"><div class="causa-tickets-list"><strong>Tickets asociados:</strong> <span class="ticket-tag">MDSB-1012313</span> <span class="ticket-tag">MDSB-225364</span> <span class="ticket-tag">MDSB-190183</span></div><div class="content-block"><h4 class="content-block-title">S&iacute;ntomas Detectados</h4><ul class="symptom-list"><li>P&oacute;liza no descarga desde Transfiriendo</li><li>Textos no aparecen en PDF impreso</li><li>Valores asegurados faltantes en impresi&oacute;n TRC</li></ul></div><div class="content-block"><h4 class="content-block-title">Pasos del Workaround</h4><ol class="steps-list"><li>Intentar descarga desde otro navegador o inc&oacute;gnito.</li><li>Si el PDF no tiene textos/valores: solicitar regeneraci&oacute;n del PDF al equipo de Stellent.</li><li>Como workaround temporal: compartir PDF manual generado desde Tronador.</li><li>Escalar a N2 con n&uacute;mero de p&oacute;liza y captura del error.</li></ol></div><div class="content-block"><h4 class="content-block-title">Documentaci&oacute;n de Soporte</h4><ul class="docs-list"><li>MDSB-1012313 &mdash; P&oacute;liza producto 150 no descarga</li><li>MDSB-225364 &mdash; Error impresi&oacute;n p&oacute;liza decenal no salen textos</li><li>MDSB-190183 &mdash; Error impresi&oacute;n p&oacute;liza TRC no aparecen valores</li></ul></div><div class="ajuste-tecnico-block"><div class="ajuste-tecnico-title">&#128736; Ajuste T&eacute;cnico</div><div class="ajuste-tecnico-body"><div class="ajuste-tecnico-field"><strong>Descripci&oacute;n:</strong><p>Revisar motor de impresi&oacute;n de Sim&oacute;n/Tronador para productos 150 y 160. Los templates de PDF no incluyen todos los campos.</p></div><div class="ajuste-tecnico-field"><strong>Sistema:</strong> Stellent / Sim&oacute;n Web</div><div class="ajuste-tecnico-field"><strong>Nivel:</strong> N2</div></div></div></div></details></div>
+
+<!-- CR-D03 -->
+<div class="causa-card-wrapper" data-causa-id="CR-D03" data-producto-id="160"><details class="causa-card"><summary class="causa-summary"><div class="causa-header"><h3 class="causa-nombre">P&oacute;liza Decenal bloqueada o cotizaci&oacute;n atascada sin opci&oacute;n de desbloqueo</h3><div class="causa-meta"><span class="badge badge-workaround">&#10003; Workaround Disponible</span><span class="causa-tickets-count">2 ticket(s)</span></div></div></summary><div class="causa-content"><div class="causa-tickets-list"><strong>Tickets asociados:</strong> <span class="ticket-tag">MDSB-974489</span> <span class="ticket-tag">MDSB-944832</span></div><div class="content-block"><h4 class="content-block-title">S&iacute;ntomas Detectados</h4><ul class="symptom-list"><li>P&oacute;liza bloqueada sin opci&oacute;n de desbloqueo en Sim&oacute;n</li><li>Cotizaci&oacute;n que no permite conversi&oacute;n ni borrado</li></ul></div><div class="content-block"><h4 class="content-block-title">Pasos del Workaround</h4><ol class="steps-list"><li>Verificar en Tronador el estado de la p&oacute;liza/cotizaci&oacute;n.</li><li>Para p&oacute;liza bloqueada: comunicarse con operaciones #773 opci&oacute;n 5 para desbloqueo.</li><li>Para cotizaci&oacute;n atascada: solicitar borrado manual a soporte N2.</li><li>Escalar con n&uacute;mero de p&oacute;liza/cotizaci&oacute;n y estado actual.</li></ol></div><div class="content-block"><h4 class="content-block-title">Documentaci&oacute;n de Soporte</h4><ul class="docs-list"><li>MDSB-974489 &mdash; Desbloquear p&oacute;liza todo riesgo producto 160</li><li>MDSB-944832 &mdash; Borrar cotizaci&oacute;n Decenal bloqueada</li></ul></div><div class="ajuste-tecnico-block"><div class="ajuste-tecnico-title">&#128736; Ajuste T&eacute;cnico</div><div class="ajuste-tecnico-body"><div class="ajuste-tecnico-field"><strong>Descripci&oacute;n:</strong><p>Implementar funcionalidad de desbloqueo/borrado de cotizaciones en Sim&oacute;n Web para productos Decenal.</p></div><div class="ajuste-tecnico-field"><strong>Sistema:</strong> Sim&oacute;n Web</div><div class="ajuste-tecnico-field"><strong>Nivel:</strong> N2</div></div></div></div></details></div>
+
+<!-- CR-D04 -->
+<div class="causa-card-wrapper" data-causa-id="CR-D04" data-producto-id="160"><details class="causa-card"><summary class="causa-summary"><div class="causa-header"><h3 class="causa-nombre">Error de corretaje no aplica porcentaje correcto seg&uacute;n participaci&oacute;n</h3><div class="causa-meta"><span class="badge badge-workaround">&#10003; Workaround Disponible</span><span class="causa-tickets-count">1 ticket(s)</span></div></div></summary><div class="causa-content"><div class="causa-tickets-list"><strong>Tickets asociados:</strong> <span class="ticket-tag">MDSB-946740</span></div><div class="content-block"><h4 class="content-block-title">S&iacute;ntomas Detectados</h4><ul class="symptom-list"><li>Corretaje no queda al 50% seg&uacute;n participaci&oacute;n en cotizaci&oacute;n Decenal</li></ul></div><div class="content-block"><h4 class="content-block-title">Pasos del Workaround</h4><ol class="steps-list"><li>Verificar en la cotizaci&oacute;n el porcentaje de participaci&oacute;n configurado.</li><li>Si el corretaje no refleja la participaci&oacute;n: escalar a l&iacute;nea de producto Decenal.</li><li>Adjuntar captura de la cotizaci&oacute;n con los porcentajes incorrectos.</li></ol></div><div class="content-block"><h4 class="content-block-title">Documentaci&oacute;n de Soporte</h4><ul class="docs-list"><li>MDSB-946740 &mdash; DECENAL Corretaje no queda al 50% seg&uacute;n participaci&oacute;n</li></ul></div><div class="ajuste-tecnico-block"><div class="ajuste-tecnico-title">&#128736; Ajuste T&eacute;cnico</div><div class="ajuste-tecnico-body"><div class="ajuste-tecnico-field"><strong>Descripci&oacute;n:</strong><p>Revisar l&oacute;gica de c&aacute;lculo de corretaje en cotizador Decenal.</p></div><div class="ajuste-tecnico-field"><strong>Sistema:</strong> Sim&oacute;n Web</div><div class="ajuste-tecnico-field"><strong>Nivel:</strong> N2 &mdash; Equipo de desarrollo</div></div></div></div></details></div>
+
+<!-- CR-D05 -->
+<div class="causa-card-wrapper" data-causa-id="CR-D05" data-producto-id="150"><details class="causa-card"><summary class="causa-summary"><div class="causa-header"><h3 class="causa-nombre">Generaci&oacute;n de PDF unificado multiriesgo TRC</h3><div class="causa-meta"><span class="badge badge-workaround">&#10003; Workaround Disponible</span><span class="causa-tickets-count">1 ticket(s)</span></div></div></summary><div class="causa-content"><div class="causa-tickets-list"><strong>Tickets asociados:</strong> <span class="ticket-tag">MDSB-980221</span></div><div class="content-block"><h4 class="content-block-title">S&iacute;ntomas Detectados</h4><ul class="symptom-list"><li>Endoso 0 de p&oacute;liza multiriesgo TRC no genera PDF unificado</li></ul></div><div class="content-block"><h4 class="content-block-title">Pasos del Workaround</h4><ol class="steps-list"><li>Verificar en Tronador si el endoso 0 fue procesado correctamente.</li><li>Solicitar generaci&oacute;n manual del PDF unificado a Stellent.</li><li>Escalar a N2 con n&uacute;mero de p&oacute;liza y endoso.</li></ol></div><div class="content-block"><h4 class="content-block-title">Documentaci&oacute;n de Soporte</h4><ul class="docs-list"><li>MDSB-980221 &mdash; Endoso 0 p&oacute;liza multiriesgo TRC producto 150</li></ul></div><div class="ajuste-tecnico-block"><div class="ajuste-tecnico-title">&#128736; Ajuste T&eacute;cnico</div><div class="ajuste-tecnico-body"><div class="ajuste-tecnico-field"><strong>Descripci&oacute;n:</strong><p>Implementar generaci&oacute;n de PDF unificado para endosos multiriesgo en producto 150.</p></div><div class="ajuste-tecnico-field"><strong>Sistema:</strong> Stellent / Tronador</div><div class="ajuste-tecnico-field"><strong>Nivel:</strong> N2</div></div></div></div></details></div>
+
+</div>
+<div class="no-results" id="no-results" style="display:none"><span class="no-results-icon">&#128269;</span>No se encontraron causas ra&iacute;z con los filtros aplicados.</div>
+</section>
+
+<details class="confluence-section"><summary class="confluence-section-toggle">&#128218; Documentaci&oacute;n de Referencia en Confluence</summary>
+<div class="confluence-grid">
+<div class="confluence-col"><h4>Runbooks y Workarounds</h4><ul>
+<li><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCT/pages/1659731969" target="_blank">&#128736; Runbook Error Numeraci&oacute;n P&oacute;liza SIMON WEB</a></li>
+<li><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCT/pages/655196193" target="_blank">&#128736; Runbook Soluciones Pagos en L&iacute;nea</a></li>
+<li><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCT/pages/239009796" target="_blank">&#128736; Borrar PDF de Stellent</a></li>
+<li><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCF/pages/295240330" target="_blank">&#128736; Base de Errores conocidos M.S.TI</a></li>
+</ul></div>
+<div class="confluence-col"><h4>Reportes</h4><ul>
+<li><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCT/pages/1636925442" target="_blank">&#128202; Reporte MDSB Hogar &mdash; An&aacute;lisis por Causa Ra&iacute;z (incluye Decenal)</a></li>
+</ul></div>
+</div></details>
+
+<footer class="footer"><div class="footer-text">Dashboard generado el <strong>23 de abril de 2026</strong> &middot; Tickets procesados: <strong>11</strong></div><div class="footer-ai">Generado con IA &mdash; Inteligencia Operacional N1</div></footer>
+
+</main>
+<script>
+(function(){"use strict";var si=document.getElementById("search-input"),sc=document.getElementById("search-clear"),pf=document.getElementById("product-filter"),ct=document.getElementById("causas-raiz-container"),nr=document.getElementById("no-results"),rc=document.getElementById("results-count");var cards=ct?Array.from(ct.querySelectorAll(".causa-card-wrapper")):[];function norm(t){return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^\w\s-]/g," ").replace(/\s+/g," ").trim();}function apply(){var q=(si?si.value:"").trim(),sp=pf?pf.value:"all",nq=norm(q),terms=nq.split(/\s+/).filter(function(t){return t.length>=2;}),v=0;for(var i=0;i<cards.length;i++){var c=cards[i],pid=c.getAttribute("data-producto-id"),mp=sp==="all"||pid===sp,ms=true;if(terms.length>0){var parts=c.querySelectorAll(".causa-nombre,.symptom-list,.steps-list,.causa-tickets-list");var txt="";for(var p=0;p<parts.length;p++){txt+=norm(parts[p].textContent||"")+" ";}ms=terms.every(function(t){return txt.indexOf(t)!==-1;});}if(mp&&ms){c.style.display="";v++;}else{c.style.display="none";}}if(nr){nr.style.display=v===0?"":"none";}if(rc){rc.textContent="Mostrando "+v+" causa(s) ra\u00edz";}if(sc){sc.style.display=q.length>0?"":"none";}}var dt=null;if(si){si.addEventListener("input",function(){clearTimeout(dt);dt=setTimeout(apply,250);});}if(sc){sc.addEventListener("click",function(){if(si){si.value="";}apply();if(si){si.focus();}});}if(pf){pf.addEventListener("change",apply);}var params=new URLSearchParams(window.location.search);var initProd=params.get("producto");if(initProd&&pf){pf.value=initProd;apply();}})();
+</script>
+</body>
+</html>
