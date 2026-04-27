@@ -41,7 +41,7 @@ details[open]>.context-toggle::before{content:"\25BE "}
 .filter-group{display:flex;flex-direction:column;gap:4px}
 .filter-group-search{flex:1;min-width:240px}
 .filter-label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:0.05em}
-.filter-select{padding:6px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:13px;background:#fff;min-width:180px;color:#334155;transition:border-color .15s}
+.filter-select{padding:6px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:13px;background:#fff;min-width:280px;color:#334155;transition:border-color .15s}
 .filter-select:focus{outline:none;border-color:#00A651;box-shadow:0 0 0 2px rgba(0,166,81,.12)}
 .search-wrapper{position:relative;display:flex;align-items:center}
 .search-input{width:100%;padding:6px 12px;padding-right:28px;border:1px solid #e2e8f0;border-radius:6px;font-size:13px;color:#334155;transition:border-color .15s}
@@ -123,14 +123,9 @@ details[open]>.confluence-section-toggle::before{content:"\25BE "}
 <main class="main">
 <a href="dashboard-n1-index.html" class="back-link">&larr; Volver al &iacute;ndice</a>
 <section class="section resumen-ejecutivo">
-<h2 class="section-title">Resumen Ejecutivo &mdash; 5 productos, 42 tickets, 13 causas ra&iacute;z</h2>
-<div class="product-chips">
-<div class="product-chip"><span class="product-chip-name">109 &mdash; Hogar para Disfrutar</span><span class="product-chip-stat"><strong>22</strong> tickets, <strong>8</strong> causas</span></div>
-<div class="product-chip"><span class="product-chip-name">115 &mdash; Hogar Bancario</span><span class="product-chip-stat"><strong>0</strong> tickets, <strong>0</strong> causas</span></div>
-<div class="product-chip"><span class="product-chip-name">117 &mdash; Hogar para Disfrutar</span><span class="product-chip-stat"><strong>1</strong> ticket, <strong>0</strong> causas</span></div>
-<div class="product-chip"><span class="product-chip-name">339 &mdash; Hogar Protecci&oacute;n Total</span><span class="product-chip-stat"><strong>2</strong> tickets, <strong>2</strong> causas</span></div>
-<div class="product-chip"><span class="product-chip-name">923 &mdash; Ofertas de Protecci&oacute;n General</span><span class="product-chip-stat"><strong>17</strong> tickets, <strong>3</strong> causas</span></div>
-</div>
+<h2 class="section-title">Resumen Ejecutivo &mdash; Segmento Hogar</h2>
+<p style="font-size:13px;color:#64748b;margin-bottom:16px;">42 tickets analizados &middot; 13 causas ra&iacute;z identificadas &middot; 5 productos</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCT/pages/941490185" target="_blank" class="confluence-chip">&#128196; Doc. producto 109</a><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCT/pages/941948940" target="_blank" class="confluence-chip">&#128196; Doc. producto 923</a><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCT/pages/1151041537" target="_blank" class="confluence-chip">&#128196; Renovaci&oacute;n Manual 923</a><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCT/pages/101974026" target="_blank" class="confluence-chip">&#128196; Tienda Digital Hogar</a><a href="https://jirasegurosbolivar.atlassian.net/wiki/spaces/BDCT/pages/564756484" target="_blank" class="confluence-chip">&#128196; Tienda de Seguros</a></div>
 <details><summary class="context-toggle">&#128218; Ver contexto de productos (canales, sistemas, diferencias)</summary>
 <div class="context-grid">
 <div class="context-card"><h3>&#127968; Hogar Voluntario</h3><p>Mismo clausulado y coberturas. La diferencia es el canal de venta.</p>
@@ -142,7 +137,7 @@ details[open]>.confluence-section-toggle::before{content:"\25BE "}
 <div class="context-item"><strong>339 &mdash; Hogar Protecci&oacute;n Total (Davivienda)</strong><p>Producto vinculado a <strong>cr&eacute;dito hipotecario Davivienda</strong>. Incluye seguro de incendio y terremoto dentro del cr&eacute;dito. El banco recauda el seguro dentro de la cuota del cr&eacute;dito. Emisi&oacute;n: <strong>proceso batch</strong> (Davivienda carga plano y un proceso batch realiza emisi&oacute;n y modificaci&oacute;n).</p></div></div></div></details>
 </section>
 <div class="filters">
-<div class="filter-group"><label for="product-filter" class="filter-label">Producto</label><select id="product-filter" class="filter-select"><option value="all">Todos los productos</option><option value="109">Hogar 109</option><option value="115">Hogar 115</option><option value="117">Hogar 117</option><option value="923">Hogar 923</option><option value="339">Hogar 339</option></select></div>
+<div class="filter-group"><label for="product-filter" class="filter-label">Producto</label><select id="product-filter" class="filter-select"><option value="all">Todos los productos</option><option value="109">109 &mdash; Hogar para Disfrutar</option><option value="115">115 &mdash; Hogar Bancario</option><option value="117">117 &mdash; Hogar para Disfrutar</option><option value="923">923 &mdash; Ofertas Protecci&oacute;n General</option><option value="339">339 &mdash; Hogar Protecci&oacute;n Total</option></select></div>
 <div class="filter-group filter-group-search"><label for="search-input" class="filter-label">Buscar</label><div class="search-wrapper"><input type="text" id="search-input" class="search-input" placeholder="Ej: renovaci&oacute;n, factura, p&oacute;liza..." autocomplete="off"><button id="search-clear" class="search-clear" title="Limpiar" style="display:none;">&#10005;</button></div></div>
 </div>
 <section class="section" id="causas-raiz-section">
